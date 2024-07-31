@@ -21,20 +21,20 @@ private:
         for (const auto& row : board) {
             for (char cell : row) {
                 if (cell == ' ') {
-                    return false; // ”Õ–Ê‚É‹ó‚¢‚Ä‚¢‚éêŠ‚ª‚ ‚ê‚Îfalse‚ğ•Ô‚·
+                    return false; // ç›¤é¢ã«ç©ºã„ã¦ã„ã‚‹å ´æ‰€ãŒã‚ã‚Œã°falseã‚’è¿”ã™
                 }
             }
         }
-        return true; // ”Õ–Ê‚ª‘S‚Ä–„‚Ü‚Á‚Ä‚¢‚½‚çtrue‚ğ•Ô‚·
+        return true; // ç›¤é¢ãŒå…¨ã¦åŸ‹ã¾ã£ã¦ã„ãŸã‚‰trueã‚’è¿”ã™
     }
 
     bool checkWin(int row, int col) const {
         char player = board[row][col];
-        return (checkDirection(row, col, 1, 0, player) || // ‰¡
-            checkDirection(row, col, 0, 1, player) || // c
-            checkDirection(row, col, 1, 1, player) || // Î‚ßi‰E‰ºj
-            checkDirection(row, col, 1, -1, player)); // Î‚ßi¶‰ºj
-    } // Še•ûŒü‚ÉƒRƒ}‚ª5‚Â˜A‘±‚µ‚Ä‚¢‚é‚©Šm”F‚·‚é
+        return (checkDirection(row, col, 1, 0, player) || // æ¨ª
+            checkDirection(row, col, 0, 1, player) || // ç¸¦
+            checkDirection(row, col, 1, 1, player) || // æ–œã‚ï¼ˆå³ä¸‹ï¼‰
+            checkDirection(row, col, 1, -1, player)); // æ–œã‚ï¼ˆå·¦ä¸‹ï¼‰
+    } // å„æ–¹å‘ã«ã‚³ãƒãŒ5ã¤é€£ç¶šã—ã¦ã„ã‚‹ã‹ç¢ºèªã™ã‚‹
 
     bool checkDirection(int row, int col, int dRow, int dCol, char player) const {
         int count = 0;
@@ -43,11 +43,11 @@ private:
             int newCol = col + i * dCol;
             if (newRow >= 0 && newRow < 9 && newCol >= 0 && newCol < 9 && board[newRow][newCol] == player) {
                 if (++count == 5) {
-                    return true; // ƒRƒ}‚ª5‚Â˜A‘±‚µ‚Ä‚¢‚½‚çtrue‚ğ•Ô‚·
+                    return true; // ã‚³ãƒãŒ5ã¤é€£ç¶šã—ã¦ã„ãŸã‚‰trueã‚’è¿”ã™
                 }
             }
             else {
-                count = 0; // ƒJƒEƒ“ƒg‚ğƒŠƒZƒbƒg
+                count = 0; // ã‚«ã‚¦ãƒ³ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
             }
         }
         return false;
@@ -64,7 +64,7 @@ private:
             else {
                 break;
             }
-        } // ³•ûŒü‚ÉƒRƒ}‚ª˜A‘±‚µ‚Ä‚¢‚é”‚ğ”‚¦‚é
+        } // æ­£æ–¹å‘ã«ã‚³ãƒãŒé€£ç¶šã—ã¦ã„ã‚‹æ•°ã‚’æ•°ãˆã‚‹
         for (int i = -1; i >= -4; --i) {
             int newRow = row + i * dRow;
             int newCol = col + i * dCol;
@@ -74,15 +74,15 @@ private:
             else {
                 break;
             }
-        } // •‰•ûŒü‚ÉƒRƒ}‚ª˜A‘±‚µ‚Ä‚¢‚é”‚ğ”‚¦‚é
-        return count; // ƒRƒ}‚ª˜A‘±‚µ‚Ä‚¢‚é”‚ğ•Ô‚·
+        } // è² æ–¹å‘ã«ã‚³ãƒãŒé€£ç¶šã—ã¦ã„ã‚‹æ•°ã‚’æ•°ãˆã‚‹
+        return count; // ã‚³ãƒãŒé€£ç¶šã—ã¦ã„ã‚‹æ•°ã‚’è¿”ã™
     }
 
     pair<int, int> findBestMove(char player, char opponent) const {
         vector<pair<int, int>> bestMoves;
         pair<vector<int>, char> maxCount;
         pair<vector<int>, char> priorityCount;
-        maxCount.first = vector<int>(4, -1);  // ƒxƒNƒgƒ‹‚Ì‰Šú‰»
+        maxCount.first = vector<int>(4, -1);  // ãƒ™ã‚¯ãƒˆãƒ«ã®åˆæœŸåŒ–
 
         for (auto row = board.begin(); row != board.end(); ++row) {
             for (auto col = row->begin(); col != row->end(); ++col) {
@@ -90,20 +90,20 @@ private:
                 int colIdx = col - row->begin();
                 if (*col == ' ') {
                     vector<int> playerCounts = {
-                        countConsecutive(rowIdx, colIdx, 1, 0, player), // ‰¡
-                        countConsecutive(rowIdx, colIdx, 0, 1, player), // c
-                        countConsecutive(rowIdx, colIdx, 1, 1, player), // Î‚ßi‰E‰ºj
-                        countConsecutive(rowIdx, colIdx, 1, -1, player) // Î‚ßi¶‰ºj
+                        countConsecutive(rowIdx, colIdx, 1, 0, player), // æ¨ª
+                        countConsecutive(rowIdx, colIdx, 0, 1, player), // ç¸¦
+                        countConsecutive(rowIdx, colIdx, 1, 1, player), // æ–œã‚ï¼ˆå³ä¸‹ï¼‰
+                        countConsecutive(rowIdx, colIdx, 1, -1, player) // æ–œã‚ï¼ˆå·¦ä¸‹ï¼‰
                     };
                     vector<int> opponentCounts = {
-                        countConsecutive(rowIdx, colIdx, 1, 0, opponent), // ‰¡
-                        countConsecutive(rowIdx, colIdx, 0, 1, opponent), // c
-                        countConsecutive(rowIdx, colIdx, 1, 1, opponent), // Î‚ßi‰E‰ºj
-                        countConsecutive(rowIdx, colIdx, 1, -1, opponent) // Î‚ßi¶‰ºj
+                        countConsecutive(rowIdx, colIdx, 1, 0, opponent), // æ¨ª
+                        countConsecutive(rowIdx, colIdx, 0, 1, opponent), // ç¸¦
+                        countConsecutive(rowIdx, colIdx, 1, 1, opponent), // æ–œã‚ï¼ˆå³ä¸‹ï¼‰
+                        countConsecutive(rowIdx, colIdx, 1, -1, opponent) // æ–œã‚ï¼ˆå·¦ä¸‹ï¼‰
                     };
 
-                    sort(playerCounts.rbegin(), playerCounts.rend()); // playerCountsƒxƒNƒgƒ‹‚ğ~‡‚Éƒ\[ƒg
-                    sort(opponentCounts.rbegin(), opponentCounts.rend()); // opponentCountsƒxƒNƒgƒ‹‚ğ~‡‚Éƒ\[ƒg
+                    sort(playerCounts.rbegin(), playerCounts.rend()); // playerCountsãƒ™ã‚¯ãƒˆãƒ«ã‚’é™é †ã«ã‚½ãƒ¼ãƒˆ
+                    sort(opponentCounts.rbegin(), opponentCounts.rend()); // opponentCountsãƒ™ã‚¯ãƒˆãƒ«ã‚’é™é †ã«ã‚½ãƒ¼ãƒˆ
 
                     int maxPlayerCount = playerCounts[0];
                     int maxOpponentCount = opponentCounts[0];
@@ -113,7 +113,7 @@ private:
                     }
                     else {
                         priorityCount = { playerCounts, player };
-                    } // ƒvƒŒƒCƒ„[‚ÆCPU‚ÌƒRƒ}‚ÌÅ‘å˜A‘±”‚ğ”äŠr
+                    } // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨CPUã®ã‚³ãƒã®æœ€å¤§é€£ç¶šæ•°ã‚’æ¯”è¼ƒ
 
                     if (priorityCount == maxCount) {
                         bestMoves.push_back({ rowIdx, colIdx });
@@ -141,15 +141,15 @@ private:
                                 break;
                             }
                         }
-                    } // ‘S‚Ä‚Ìƒ}ƒX‚ÌÅ‘åƒRƒ}”‚ğ”äŠr‚µ’u‚­‚×‚«êŠ‚ÌŒó•â‚ğo‚·
+                    } // å…¨ã¦ã®ãƒã‚¹ã®æœ€å¤§ã‚³ãƒæ•°ã‚’æ¯”è¼ƒã—ç½®ãã¹ãå ´æ‰€ã®å€™è£œã‚’å‡ºã™
                 }
             }
         }
 
         if (!bestMoves.empty()) {
-            srand(time(0)); // —”‚ÌƒV[ƒh‚ÌXV
+            srand(time(0)); // ä¹±æ•°ã®ã‚·ãƒ¼ãƒ‰ã®æ›´æ–°
             int randomIndex = rand() % bestMoves.size();
-            return bestMoves[randomIndex]; // bestMoves‚©‚çƒ‰ƒ“ƒ_ƒ€‚É1‚Â‚ğ‘I‘ğ‚µ‚Ä•Ô‚·
+            return bestMoves[randomIndex]; // bestMovesã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã«1ã¤ã‚’é¸æŠã—ã¦è¿”ã™
         }
 
         return { -1, -1 };
@@ -159,23 +159,23 @@ public:
     GomokuGame() : board(9, vector<char>(9, ' ')), currentPlayer('X'), lastMove({ -1, -1 }) {}
 
     void printBoard() const {
-        // —ñ”Ô†‚Ì•\¦
+        // åˆ—ç•ªå·ã®è¡¨ç¤º
         cout << "\n" << "  ";
         for (int i = 0; i < 9; ++i) {
             cout << "  " << "\033[32m" << i << "\033[0m" << " ";
         }
         cout << endl;
 
-        // ã•”‚Ì˜gü‚ğ•\¦
+        // ä¸Šéƒ¨ã®æ ç·šã‚’è¡¨ç¤º
         cout << "  ";
         for (int i = 0; i < 9; ++i) {
             cout << "+---";
         }
         cout << "+" << endl;
 
-        // Šes‚ğ•\¦
+        // å„è¡Œã‚’è¡¨ç¤º
         for (int i = 0; i < 9; ++i) {
-            // s”Ô†‚Æ¶˜gü‚ğ•\¦
+            // è¡Œç•ªå·ã¨å·¦æ ç·šã‚’è¡¨ç¤º
             cout << "\033[33m" << i << "\033[0m" << " ";
             for (int j = 0; j < 9; ++j) {
                 if (lastMove.first == i && lastMove.second == j) {
@@ -187,7 +187,7 @@ public:
             }
             cout << "|" << endl;
 
-            // ‰º•”‚Ì˜gü‚ğ•\¦
+            // ä¸‹éƒ¨ã®æ ç·šã‚’è¡¨ç¤º
             cout << "  ";
             for (int j = 0; j < 9; ++j) {
                 cout << "+---";
@@ -197,15 +197,15 @@ public:
     }
 
     void WinCount(const string& winner) {
-        ifstream datafile("win.txt"); // ¡‚Ü‚Å‚ÌŸ”s‚ğ“Ç‚İ‚Ş
-        regex rx(R"(\s)"); // •ªŠ„‚Ì•¶š‚Ìw’è
+        ifstream datafile("win.txt"); // ä»Šã¾ã§ã®å‹æ•—ã‚’èª­ã¿è¾¼ã‚€
+        regex rx(R"(\s)"); // åˆ†å‰²ã®æ–‡å­—ã®æŒ‡å®š
         string str;
-        int playerWins = 0; // •Ï”‚Ì‰Šú‰»
-        int cpuWins = 0; // •Ï”‚Ì‰Šú‰»
+        int playerWins = 0; // å¤‰æ•°ã®åˆæœŸåŒ–
+        int cpuWins = 0; // å¤‰æ•°ã®åˆæœŸåŒ–
 
-        while (getline(datafile, str)) { // ƒtƒ@ƒCƒ‹‚©‚ç1s‚¸‚Â“Ç‚İ‚Ş
-            sregex_token_iterator it(str.begin(), str.end(), rx, -1); // ƒXƒy[ƒX‚Å•ªŠ„‚·‚éƒCƒeƒŒ[ƒ^
-            sregex_token_iterator end; // ƒCƒeƒŒ[ƒ^‚ÌI‚í‚è
+        while (getline(datafile, str)) { // ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰1è¡Œãšã¤èª­ã¿è¾¼ã‚€
+            sregex_token_iterator it(str.begin(), str.end(), rx, -1); // ã‚¹ãƒšãƒ¼ã‚¹ã§åˆ†å‰²ã™ã‚‹ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
+            sregex_token_iterator end; // ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®çµ‚ã‚ã‚Š
 
             if (it != end) {
                 string key = *it++;
@@ -234,35 +234,35 @@ public:
 
     bool makeMove(int row, int col) {
         if (row < 0 || row >= 9 || col < 0 || col >= 9 || board[row][col] != ' ') {
-            cout << "–³Œø‚È“®‚«‚Å‚·BÄ“x“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B" << endl;
+            cout << "ç„¡åŠ¹ãªå‹•ãã§ã™ã€‚å†åº¦å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚" << endl;
             return false;
         }
         board[row][col] = currentPlayer;
-        lastMove = { row, col }; // ’¼‘O‚Ì“®‚«‚ğ•Û‘¶
+        lastMove = { row, col }; // ç›´å‰ã®å‹•ãã‚’ä¿å­˜
         if (checkWin(row, col)) {
             printBoard();
             if (currentPlayer == 'X') {
                 WinCount("Player");
-                cout << "ƒvƒŒƒCƒ„[‚ÌŸ‚¿‚Å‚·I" << endl;
+                cout << "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹ã¡ã§ã™ï¼" << endl;
             }
             else {
                 WinCount("CPU");
-                cout << "CPU‚ÌŸ‚¿‚Å‚·I" << endl;
+                cout << "CPUã®å‹ã¡ã§ã™ï¼" << endl;
             }
             return true;
-        } // “¯‚¶ƒRƒ}‚ª5‚Â•À‚ñ‚Å‚¢‚½‚çŸ—˜‚Ì•\¦‚ğ‚·‚é
+        } // åŒã˜ã‚³ãƒãŒ5ã¤ä¸¦ã‚“ã§ã„ãŸã‚‰å‹åˆ©ã®è¡¨ç¤ºã‚’ã™ã‚‹
         if (isBoardFull()) {
             printBoard();
-            cout << "ˆø‚«•ª‚¯‚Å‚·I" << endl;
+            cout << "å¼•ãåˆ†ã‘ã§ã™ï¼" << endl;
             return true;
-        } // ‘S‚Ä‚Ìƒ}ƒX‚ª–„‚Ü‚Á‚Ä‚¢‚½‚çˆø‚«•ª‚¯‚Ì•\¦‚ğ‚·‚é
+        } // å…¨ã¦ã®ãƒã‚¹ãŒåŸ‹ã¾ã£ã¦ã„ãŸã‚‰å¼•ãåˆ†ã‘ã®è¡¨ç¤ºã‚’ã™ã‚‹
 
         if (currentPlayer == 'X') {
             currentPlayer = 'O';
         }
         else {
             currentPlayer = 'X';
-        } // Ÿ‚Ìƒ^[ƒ“‚ÉˆÚs
+        } // æ¬¡ã®ã‚¿ãƒ¼ãƒ³ã«ç§»è¡Œ
         return false;
     }
 
@@ -271,23 +271,23 @@ public:
     }
 
     bool cpuMove() {
-        this_thread::sleep_for(chrono::milliseconds(1000)); // CPU‚Ì“®‚«‚ğ1•b’x‰„‚³‚¹‚é
+        this_thread::sleep_for(chrono::milliseconds(1000)); // CPUã®å‹•ãã‚’1ç§’é…å»¶ã•ã›ã‚‹
 
         pair<int, int> bestMove = findBestMove('O', 'X');
         if (makeMove(bestMove.first, bestMove.second)) {
             return true;
-        } // CPU‚Ì“®ì‚ª³í‚ÉI—¹‚·‚é‚Ætrue‚ğ•Ô‚·
+        } // å‹æ•—ãŒä»˜ãã¨trueã‚’è¿”ã™
         return false;
     }
 
 };
 
 bool getInput(int& row, int& col) {
-    cout << "s‚Æ—ñ‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢ (—á:\033[33m4 \033[32m4\033[0m): ";
+    cout << "è¡Œã¨åˆ—ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ (ä¾‹:\033[33m4 \033[32m4\033[0m): ";
     if (!(cin >> row >> col) || row < 0 || row >= 9 || col < 0 || col >= 9) {
-        cout << "–³Œø‚È“ü—Í‚Å‚·B0‚©‚ç8‚Ì”š‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B" << endl;
-        cin.clear(); // –³Œø‚È“ü—Í‚É‚æ‚éƒGƒ‰[‚ğíœ
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // –³Œø‚È“ü—Í‚Ìƒf[ƒ^‚ğíœ
+        cout << "ç„¡åŠ¹ãªå…¥åŠ›ã§ã™ã€‚0ã‹ã‚‰8ã®æ•°å­—ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚" << endl;
+        cin.clear(); // ç„¡åŠ¹ãªå…¥åŠ›ã«ã‚ˆã‚‹ã‚¨ãƒ©ãƒ¼ã‚’å‰Šé™¤
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ç„¡åŠ¹ãªå…¥åŠ›ã®ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤
         return false;
     }
     return true;
@@ -296,39 +296,39 @@ bool getInput(int& row, int& col) {
 int main() {
     GomokuGame game;
 
-    cout << "ŒÜ–Ú•À‚×‚ğn‚ß‚Ü‚·I\n";
-    // ƒQ[ƒ€‚ğs‚¤–³ŒÀƒ‹[ƒv‚ğŠJn
+    cout << "äº”ç›®ä¸¦ã¹ã‚’å§‹ã‚ã¾ã™ï¼\n";
+    // ã‚²ãƒ¼ãƒ ã‚’è¡Œã†ç„¡é™ãƒ«ãƒ¼ãƒ—ã‚’é–‹å§‹
     while (true) {
-        game.printBoard(); // ”Õ–Ê‚ğ•`‰æ
+        game.printBoard(); // ç›¤é¢ã‚’æç”»
 
         if (game.getCurrentPlayer() == 'X') {
-            cout << "ƒvƒŒƒCƒ„[‚Ì”Ô‚Å‚·B\n";
+            cout << "ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç•ªã§ã™ã€‚\n";
             
             int row, col;
             if (!getInput(row, col)) {
                 continue;
-            } // “ü—Í‚ğó‚¯æ‚é
+            } // å…¥åŠ›ã‚’å—ã‘å–ã‚‹
             if (game.makeMove(row, col)) {
                 char choice;
-                cout << "‚à‚¤ˆê“xƒvƒŒƒC‚µ‚Ü‚·‚©H (y/n): ";
+                cout << "ã‚‚ã†ä¸€åº¦ãƒ—ãƒ¬ã‚¤ã—ã¾ã™ã‹ï¼Ÿ (y/n): ";
                 cin >> choice;
                 if (choice == 'y' || choice == 'Y') {
-                    game = GomokuGame(); // V‚µ‚¢ƒQ[ƒ€‚ğŠJn
+                    game = GomokuGame(); // æ–°ã—ã„ã‚²ãƒ¼ãƒ ã‚’é–‹å§‹
                 }
                 else {
                     break;
                 }
-            } // ƒQ[ƒ€‚ğs‚¤
+            } // ã‚²ãƒ¼ãƒ ã‚’è¡Œã†
         }
 
         else {
-            cout << "CPU‚Ì”Ô‚Å‚·B\n";
+            cout << "CPUã®ç•ªã§ã™ã€‚\n";
             if (game.cpuMove()) {
                 char choice;
-                cout << "‚à‚¤ˆê“xƒvƒŒƒC‚µ‚Ü‚·‚©H (y/n): ";
+                cout << "ã‚‚ã†ä¸€åº¦ãƒ—ãƒ¬ã‚¤ã—ã¾ã™ã‹ï¼Ÿ (y/n): ";
                 cin >> choice;
                 if (choice == 'y' || choice == 'Y') {
-                    game = GomokuGame(); // V‚µ‚¢ƒQ[ƒ€‚ğŠJn
+                    game = GomokuGame(); // æ–°ã—ã„ã‚²ãƒ¼ãƒ ã‚’é–‹å§‹
                 }
                 else {
                     break;
